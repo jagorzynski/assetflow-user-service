@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: assetflow-user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/assetflow-user-service-db
+    username: sothrose
+    password: sothrose
+    driver-class-name: org.postgresql.Driver
+server:
+  port: 8081
