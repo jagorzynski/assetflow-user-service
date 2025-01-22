@@ -5,6 +5,7 @@ import static java.lang.String.join;
 
 import com.sothrose.assetflow_user_service.exception.UserAlreadyPresentException;
 import com.sothrose.assetflow_user_service.exception.UserDtoValidationException;
+import com.sothrose.assetflow_user_service.exception.UserNotFoundException;
 import com.sothrose.assetflow_user_service.model.UserDto;
 import com.sothrose.assetflow_user_service.repository.UserRepository;
 import com.sothrose.assetflow_user_service.validator.UserDtoValidator;
@@ -43,7 +44,13 @@ public class UserService {
   }
 
   public UserDto getUserById(Long userId) {
-    return userRepository.findById(userId).map(UserDto::from).orElse(null);
+    return userRepository
+        .findById(userId)
+        .map(UserDto::from)
+        .orElseThrow(
+            () ->
+                new UserNotFoundException(
+                    format("User with id: [%s] not found in repository", userId)));
   }
 
   public List<UserDto> getAllUsers() {
